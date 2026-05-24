@@ -13,7 +13,7 @@ const sqs = new SQSClient({
 
 const QUEUE_URL = process.env.SQS_QUEUE_URL!;
 
-app.post("/login", async (req, res) => {
+app.post("/user/login", async (req, res) => {
     try {
         const { email, password } = req.body;
 
