@@ -34,9 +34,10 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -f Dockerfile.lambda \
-          -t $ECR_REPOSITORY \
-          ./user-service
+            docker build \
+            -f ./user-service/Dockerfile.lambda \
+             -t $ECR_REPOSITORY \
+            ./user-service
 
       - name: Tag Docker Image
         run: |
