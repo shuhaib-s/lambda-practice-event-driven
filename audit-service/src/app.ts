@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient, ScanCommand } from "@aws-sdk/client-dynamodb";
 
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 
@@ -40,6 +40,30 @@ app.post("/audit", async (req, res) => {
 
         res.status(200).json({
             message: "audit stored"
+        });
+
+    } catch (err) {
+
+        console.error(err);
+
+        res.status(500).json({
+            message: "internal server error"
+        });
+    }
+});
+
+app.get("/audit", async (req, res) => {
+
+    try {
+
+        const result = await dynamo.send(
+            new ScanCommand({
+                TableName: TABLE_NAME
+            })
+        );
+
+        res.status(200).json({
+            data: result.Items || []
         });
 
     } catch (err) {
