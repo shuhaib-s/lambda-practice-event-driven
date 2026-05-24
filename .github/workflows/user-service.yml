@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'user-service/**'
+  workflow_dispatch:
 
 env:
   AWS_REGION: us-east-1
